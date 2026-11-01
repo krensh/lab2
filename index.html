@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stargazing Ideas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Скрытые градиенты -->
+    <svg style="width: 0; height: 0; position: absolute;">
+        <defs>
+            <!-- Градиенты для звезд -->
+            <radialGradient id="grad-orange" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFF4A3" />
+                <stop offset="100%" stop-color="#FF8C00" />
+            </radialGradient>
+            <radialGradient id="grad-purple" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#FFB3FF" />
+                <stop offset="100%" stop-color="#8A2BE2" />
+            </radialGradient>
+            <radialGradient id="grad-green" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#A0FFA0" />
+                <stop offset="100%" stop-color="#008080" />
+            </radialGradient>
+        </defs>
+    </svg>
+
+    <!-- Курсор-звезда -->
+    <svg class="cursor-star" viewBox="0 0 105 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M52.2679 0L63.9099 40.6289L104.537 52.2694L63.9099 63.9099L52.2679 104.539L40.6274 63.9099L0 52.2694L40.6274 40.6289L52.2679 0Z" />
+    </svg>
+
+    <!-- ЭКРАН 1: Заголовок по центру -->
+    <header class="hero">
+        <div class="title-wrapper">
+            <h1 class="main-title">stargazing ideas⭑</h1>
+        </div>
+    </header>
+
+    <!-- ЭКРАН 2: Звезды (появятся при скролле) -->
+    <section class="stars-section">
+        <div class="stars-container">
+            <p class="subtitle">зажги все звёзды</p>
+            <!-- Звезды -->
+            <svg class="star star-10" viewBox="0 0 258 249" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M138.91 66.9126L185.146 21.1581L171.74 84.5876L236.419 74.1038L189.116 115.809L246.684 143.288L180.584 150.941L211.03 208.303L154.817 177.394L145.316 238.507L118.432 181.377L71.5192 227.297L85.1642 164.493L21.1235 175.23L68.6281 132.88L10.6852 104.834L76.2524 97.5975L45.739 40.9006L102.654 71.7835L112.598 10.1539L138.91 66.9126Z" />
+            </svg>
+            <svg class="star star-8" viewBox="0 0 173 173" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M101.149 51.1269L147.662 25.3339L121.866 71.8485L173 86.5L121.866 101.15L147.662 147.664L101.15 121.87L86.4984 173L71.8482 121.867L25.3328 147.664L51.1262 101.148L0 86.5L51.1278 71.8501L25.3328 25.3339L71.8482 51.1301L86.4984 0L101.149 51.1269Z" />
+            </svg>
+            <svg class="star star-5" viewBox="0 0 122 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M122 44.3044L83.621 73.5286L100.797 119.703L62.2513 90.7155L25.3969 122L39.9545 74.8583L0 48.0204L47.5433 47.8722L59.704 0L74.5299 47.0506L122 44.3044Z" />
+            </svg>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

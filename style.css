@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'Skifer';
+    src: url('assets/MV-SKIFER.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+body {
+    background-color: #050505;
+    font-family: 'Skifer', sans-serif;
+    color: white;
+    /* Разрешаем скролл, так как теперь у нас 2 экрана */
+    overflow-x: hidden;
+}
+
+/* --- ЭКРАН 1: Заголовок --- */
+.hero {
+    height: 100vh; /* Ровно высота экрана */
+    display: flex;
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    padding: 20px;
+}
+
+.title-wrapper {
+    text-align: center;
+    max-width: 90%;
+}
+
+.main-title {
+    /* Адаптивный размер: минимум 2rem, идеально 8vw, максимум 6rem */
+    font-size: clamp(2rem, 5vw, 6.5rem);
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    line-height: 1.1;
+
+    /* Твой градиент (взяты цвета со скрина) */
+    background: linear-gradient(90deg,
+        #8474EA 0%,
+        #D77984 23%,
+        #C95937 36%,
+        #EC9033 42%,
+        #F6CD66 65%,
+        #97AF6D 80%,
+        #3F74C4 87%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    /* Убрал сильное белое свечение (оно делало текст бледным) */
+    filter: drop-shadow(0 0 10px rgba(255, 119, 160, 0.532));
+
+    /*background-size: 200% auto;
+    animation: shine 2s linear infinite;*/
+}
+
+.subtitle {
+    margin-top: 30px;
+    font-size: clamp(1rem, 3vw, 2rem);
+    letter-spacing: 4px;
+    color: #F6CD66; /* Желтоватый оттенок из градиента */
+    text-shadow: 0 0 10px rgba(246, 205, 102, 0.4);
+    text-transform: lowercase;
+}
+
+/* --- ЭКРАН 2: Звезды --- */
+.stars-section {
+    height: 100vh; /* Второй экран */
+    position: relative;
+}
+
+.stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Общие настройки для всех звезд */
+.star {
+    position: absolute;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+}
+
+.star path {
+    fill: transparent;
+    transition: all 0.4s ease;
+    stroke-width: 2px;
+    opacity: 0.3; /* Тусклые */
+}
+
+.star:hover path { opacity: 0.8; }
+
+/* Позиционирование звезд на втором экране */
+.star-10 {
+    width: 180px;
+    top: 20%;
+    left: 10%;
+}
+.star-10 path { stroke: #008080; }
+.star-10.active path {
+    fill: url(#grad-green);
+    opacity: 1;
+    filter: drop-shadow(0 0 18px rgba(0, 128, 128, 0.5));
+}
+
+.star-8 {
+    width: 120px;
+    top: 50%;
+    right: 15%;
+}
+.star-8 path { stroke: #8A2BE2; }
+.star-8.active path {
+    fill: url(#grad-purple);
+    opacity: 1;
+    filter: drop-shadow(0 0 13px rgba(138, 43, 226, 0.4));
+}
+
+.star-5 {
+    width: 80px;
+    bottom: 20%;
+    left: 40%;
+}
+.star-5 path { stroke: #FF8C00; }
+.star-5.active path {
+    fill: url(#grad-orange);
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgb(255, 140, 0, 0.5));
+}
+
+/* --- КУРСОР --- */
+.cursor-star {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    fill: #F6CD66;
+    filter: drop-shadow(0 0 5px rgba(246, 205, 102, 0.8));
+    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+}
