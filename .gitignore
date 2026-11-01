@@ -1,0 +1,23 @@
+# Системные файлы (мусор ОС)
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Файлы редакторов и IDE (если ты используешь VS Code, WebStorm и т.д.)
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Файлы сборщиков и зависимости (если вдруг решишь использовать npm)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Логи и временные файлы
+*.log
+npm-debug.log*
+.DS_Store
+
+# Секретные файлы (если у тебя появятся ключи от хостинга и т.д.)
+.env
+.env.local

@@ -10,23 +10,24 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: none;
+    cursor: none !important;
 }
 
 body {
     background-color: #050505;
     font-family: 'Skifer', sans-serif;
     color: white;
-    /* Разрешаем скролл, так как теперь у нас 2 экрана */
     overflow-x: hidden;
 }
 
-/* --- ЭКРАН 1: Заголовок --- */
+/* =========================================
+   ЭКРАН 1: Заголовок
+   ========================================= */
 .hero {
-    height: 100vh; /* Ровно высота экрана */
+    height: 100vh;
     display: flex;
-    align-items: center; /* Центрируем по вертикали */
-    justify-content: center; /* Центрируем по горизонтали */
+    align-items: center;
+    justify-content: center;
     padding: 20px;
 }
 
@@ -36,45 +37,38 @@ body {
 }
 
 .main-title {
-    /* Адаптивный размер: минимум 2rem, идеально 8vw, максимум 6rem */
     font-size: clamp(2rem, 5vw, 6.5rem);
     letter-spacing: 2px;
     text-transform: lowercase;
     line-height: 1.1;
-
-    /* Твой градиент (взяты цвета со скрина) */
-    background: linear-gradient(90deg,
-        #8474EA 0%,
-        #D77984 23%,
-        #C95937 36%,
-        #EC9033 42%,
-        #F6CD66 65%,
-        #97AF6D 80%,
-        #3F74C4 87%
-    );
+    background: linear-gradient(90deg, #8474EA 0%, #D77984 23%, #C95937 36%, #EC9033 42%, #F6CD66 65%, #97AF6D 80%, #3F74C4 87%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-
-    /* Убрал сильное белое свечение (оно делало текст бледным) */
     filter: drop-shadow(0 0 10px rgba(255, 119, 160, 0.532));
-
-    /*background-size: 200% auto;
-    animation: shine 2s linear infinite;*/
 }
 
-.subtitle {
-    margin-top: 30px;
-    font-size: clamp(1rem, 3vw, 2rem);
-    letter-spacing: 4px;
-    color: #F6CD66; /* Желтоватый оттенок из градиента */
-    text-shadow: 0 0 10px rgba(246, 205, 102, 0.4);
-    text-transform: lowercase;
+/* =========================================
+   КУРСОР
+   ========================================= */
+.cursor-star {
+    position: fixed;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    fill: #F6CD66;
+    filter: drop-shadow(0 0 5px rgba(246, 205, 102, 0.8));
+    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
 }
 
-/* --- ЭКРАН 2: Звезды --- */
+/* =========================================
+   ЭКРАН 2: Звезды
+   ========================================= */
 .stars-section {
-    height: 100vh; /* Второй экран */
+    height: 100vh;
     position: relative;
 }
 
@@ -87,70 +81,192 @@ body {
     pointer-events: none;
 }
 
-/* Общие настройки для всех звезд */
+.subtitle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(1.5rem, 3vw, 3rem);
+    letter-spacing: 4px;
+    text-transform: lowercase;
+    white-space: nowrap;
+    background: linear-gradient(90deg, #C95937 0%, #D77984 28%, #8474EA 51%, #EC9033 88%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 10px rgba(201, 89, 55, 0.5));
+}
+
+/* Перебиваем палец на всех кликабельных элементах */
+button, a, svg, path, .star, .puzzle-star {
+    cursor: none !important;
+}
+
+/* Общие настройки для звезд 2 экрана */
 .star {
     position: absolute;
-    cursor: pointer;
     pointer-events: auto;
     transition: all 0.4s ease;
+    overflow: visible;
 }
 
 .star path {
     fill: transparent;
     transition: all 0.4s ease;
     stroke-width: 2px;
-    opacity: 0.3; /* Тусклые */
+    opacity: 0.3;
 }
 
 .star:hover path { opacity: 0.8; }
 
-/* Позиционирование звезд на втором экране */
-.star-10 {
-    width: 180px;
-    top: 20%;
-    left: 10%;
-}
-.star-10 path { stroke: #008080; }
-.star-10.active path {
-    fill: url(#grad-green);
-    opacity: 1;
-    filter: drop-shadow(0 0 18px rgba(0, 128, 128, 0.5));
+/* Позиционирование звезд 2 экрана */
+.star-big { width: 190px; top: 60%; left: 10%; }
+.star-big path { stroke: #8A2BE2; }
+.star-big.active path { fill: url(#grad-purple); opacity: 1; filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.6)); }
+
+.star-small { width: 70px; top: 20%; left: 25%; }
+.star-small path { stroke: #FF8C00; }
+.star-small.active path { fill: url(#grad-orange); opacity: 1; filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.6)); }
+
+.star-medium { width: 130px; top: 50%; right: 10%; }
+.star-medium path { stroke: #008080; }
+.star-medium.active path { fill: url(#grad-green); opacity: 1; filter: drop-shadow(0 0 20px rgba(0, 128, 128, 0.6)); }
+
+/* =========================================
+   БЛОКИРОВКА И ПОКАЗ ЭКРАНОВ
+   ========================================= */
+/* По умолчанию 3, 4 и 5 экраны скрыты */
+.final-section,
+.puzzle-section,
+.fifth-section {
+    display: none;
 }
 
-.star-8 {
-    width: 120px;
+/* 3 и 4 экран показываются, когда собраны звезды на 2 экране */
+body.game-won .final-section,
+body.game-won .puzzle-section {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 5 экран показывается, когда собраны звезды на 4 экране */
+body.puzzle-won .fifth-section {
+    display: block;
+    height: 100vh;
+}
+
+/* =========================================
+   ЭКРАН 3: Карусель
+   ========================================= */
+.final-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    padding: 0 10vw;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.carousel-container::-webkit-scrollbar { display: none; }
+
+.carousel-img {
+    height: 60vh;
+    width: auto;
+    max-width: 80vw;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.carousel-container.is-dragging {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 5vh;
+    width: 100%;
+    text-align: center;
+    font-size: clamp(0.8rem, 1.2vw, 1.2rem);
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: lowercase;
+    font-family: 'Skifer', sans-serif;
+}
+
+/* =========================================
+   ЭКРАН 4: Загадка (ПОЛНОСТЬЮ ИЗОЛИРОВАН)
+   ========================================= */
+.puzzle-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.puzzle-text {
+    position: absolute;
     top: 50%;
-    right: 15%;
-}
-.star-8 path { stroke: #8A2BE2; }
-.star-8.active path {
-    fill: url(#grad-purple);
-    opacity: 1;
-    filter: drop-shadow(0 0 13px rgba(138, 43, 226, 0.4));
-}
-
-.star-5 {
-    width: 80px;
-    bottom: 20%;
-    left: 40%;
-}
-.star-5 path { stroke: #FF8C00; }
-.star-5.active path {
-    fill: url(#grad-orange);
-    opacity: 1;
-    filter: drop-shadow(0 0 10px rgb(255, 140, 0, 0.5));
-}
-
-/* --- КУРСОР --- */
-.cursor-star {
-    position: fixed;
-    width: 24px;
-    height: 24px;
-    pointer-events: none;
-    z-index: 9999;
-    fill: #F6CD66;
-    filter: drop-shadow(0 0 5px rgba(246, 205, 102, 0.8));
+    left: 50%;
     transform: translate(-50%, -50%);
-    top: 0;
-    left: 0;
+    width: 80%;
+    text-align: center;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    line-height: 1.4;
+    background: linear-gradient(90deg, #8474EA 0%, #D77984 23%, #C95937 36%, #EC9033 42%, #F6CD66 65%, #97AF6D 80%, #3F74C4 87%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 8px rgba(255, 119, 160, 0.3));
+    z-index: 2;
+}
+
+/* Общие стили ТОЛЬКО для звезд 4 экрана */
+.puzzle-star {
+    position: absolute;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    overflow: visible;
+}
+
+.puzzle-star path {
+    fill: transparent;
+    transition: all 0.4s ease;
+    stroke-width: 2px;
+    opacity: 0.3;
+}
+
+.puzzle-star:hover path { opacity: 0.8; }
+
+/* Уникальное позиционирование для 4-х звезд */
+.p-big { width: 140px; top: 15%; left: 10%; }
+.p-big path { stroke: #8A2BE2; }
+.p-big.active path { fill: url(#grad-purple); opacity: 1; filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.6)); }
+
+.p-small-1 { width: 60px; top: 20%; right: 20%; }
+.p-small-1 path { stroke: #FF8C00; }
+.p-small-1.active path { fill: url(#grad-orange); opacity: 1; filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.6)); }
+
+.p-medium { width: 100px; bottom: 20%; left: 20%; }
+.p-medium path { stroke: #008080; }
+.p-medium.active path { fill: url(#grad-green); opacity: 1; filter: drop-shadow(0 0 20px rgba(0, 128, 128, 0.6)); }
+
+.p-small-2 { width: 70px; bottom: 15%; right: 15%; }
+.p-small-2 path { stroke: #FF8C00; }
+.p-small-2.active path { fill: url(#grad-orange); opacity: 1; filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.6)); }
+body.no-scroll {
+    overflow: hidden;
 }
