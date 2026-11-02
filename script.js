@@ -21,30 +21,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     animateCursor();
 
-    // --- 2. ПЕРЕМЕННЫЕ ДЛЯ КОНТРОЛЯ СКРОЛЛА ---
+    // --- 2. УМНАЯ БЛОКИРОВКА СКРОЛЛА ---
     let activeStarsCount = 0;
     let puzzleCount = 0;
-    let isScrollLocked = false; // Флаг блокировки
+    let isScrollLocked = false;
 
     const finalSection = document.getElementById('final-section');
     const fifthSection = document.getElementById('fifth-section');
 
-    // --- 3. УМНАЯ БЛОКИРОВКА СКРОЛЛА (С ОТКАТОМ) ---
     window.addEventListener('wheel', (e) => {
-        // Если скроллим вниз (e.deltaY > 0) и скролл заблокирован
         if (e.deltaY > 0 && isScrollLocked) {
-
-            // Если мы на 2 экране (звезды не собраны) — не даем скроллить ниже 2-го экрана
+            // Блокируем на 2-м экране
             if (activeStarsCount < 3 && window.scrollY >= window.innerHeight) {
-                // Не даем уйти дальше второго экрана (100vh)
                 if (window.scrollY + e.deltaY > window.innerHeight) {
                      window.scrollTo(0, window.innerHeight);
-                     e.preventDefault(); // Отменяем инерцию
+                     e.preventDefault();
                 }
             }
-            // Если мы на 4 экране (3-й уже открыт), но не собрали 3 звезды на 4-м
+            // Блокируем на 4-м экране
             else if (activeStarsCount === 3 && puzzleCount < 3) {
-                // Не даем уйти дальше 4-го экрана (300vh = 3 экрана по 100vh)
                 if (window.scrollY + e.deltaY > window.innerHeight * 3) {
                     window.scrollTo(0, window.innerHeight * 3);
                     e.preventDefault();
@@ -54,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: false });
 
 
-    // --- 4. ЗВЕЗДЫ НА 2 ЭКРАНЕ (Нужно 3 из 3) ---
+    // --- 3. ЗВЕЗДЫ НА 2 ЭКРАНЕ ---
     const stars = document.querySelectorAll('.stars-container .star');
 
     stars.forEach(star => {
@@ -63,18 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
             activeStarsCount += star.classList.contains('active') ? 1 : -1;
 
             if (activeStarsCount === 3) {
-                // Открываем 3 и 4 экран
                 document.body.classList.add('game-won');
-                isScrollLocked = true; // Скролл дальше пока закрыт (ждем 4-й экран)
-
-                // Плавный скролл на 3-й экран
+                isScrollLocked = true;
                 setTimeout(() => {
                     const yOffset = finalSection.getBoundingClientRect().top + window.pageYOffset;
                     window.scrollTo({ top: yOffset, behavior: 'smooth' });
                 }, 100);
             } else {
                 document.body.classList.remove('game-won');
-                // Если потушили звезду, возвращаемся на 2-й экран
                 if(window.scrollY > window.innerHeight) {
                      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
                 }
@@ -83,60 +74,131 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    // --- 5. ЗВЕЗДЫ НА 4 ЭКРАНЕ (Нужно 3 из 4) ---
+    // --- 4. ЛОГИКА 4 ЭКРАНА (ПАЗЛ) ---
     const puzzleStars = document.querySelectorAll('.puzzle-star');
+    const secondCarousel = document.getElementById('second-carousel');
+
+    // Все возможные комбинации по 3 звезды (123, 124, 134, 234)
+    const combinations = ["123", "124", "134", "234"];
+
+    // Привязываем комбинации к папкам с картинками
+    const comboToFolder = {
+        "123": 1,
+        "124": 2,
+        "134": 3,
+        "234": 1  // Для четвертой комбинации можно использовать 1-ю папку или добавить новую
+    };
+
+    // Функция для генерации картинок в карусели
+    function loadImages(folderNumber) {
+        secondCarousel.innerHTML = ''; // Очищаем старые картинки
+        for (let i = 1; i <= 5; i++) {
+            const img = document.createElement('img');
+            // Путь к картинкам: assets/pic_packs/second/1/1.jpg и т.д.
+            img.src = `assets/pic_packs/second/${folderNumber}/${i}.jpg`;
+            img.alt = `Идея ${i}`;
+            img.className = 'carousel-img';
+            img.draggable = false;
+            secondCarousel.appendChild(img);
+        }
+    }
 
     puzzleStars.forEach(star => {
         star.addEventListener('click', () => {
-            star.classList.toggle('active');
-            puzzleCount += star.classList.contains('active') ? 1 : -1;
+            const starId = star.getAttribute('data-id');
+            let activeIds = [];
 
-            if (puzzleCount >= 3) {
-                // Открываем 5 экран и полностью разблокируем скролл
+            // Собираем ID всех горящих звезд ДО клика
+            puzzleStars.forEach(s => {
+                if (s.classList.contains('active')) {
+                    activeIds.push(s.getAttribute('data-id'));
+                }
+            });
+
+            // Если звезда уже горит, мы ее тушим (удаляем из массива)
+            if (star.classList.contains('active')) {
+                activeIds = activeIds.filter(id => id !== starId);
+            } else {
+                // Если звезда не горит, добавляем ее
+                activeIds.push(starId);
+            }
+
+            // ПРАВИЛО: Если выбрано 4 звезды, оставляем только последнюю
+            if (activeIds.length === 4) {
+                activeIds = [starId];
+            }
+
+            // Обновляем визуальное состояние всех звезд
+            puzzleStars.forEach(s => {
+                const id = s.getAttribute('data-id');
+                if (activeIds.includes(id)) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+
+            puzzleCount = activeIds.length;
+
+            // Если выбрано 3 звезды
+            if (puzzleCount === 3) {
+                // Сортируем ID по возрастанию, чтобы получить строку (например, "123")
+                const comboString = activeIds.sort().join("");
+
+                // Загружаем картинки для этой комбинации
+                if (comboToFolder[comboString]) {
+                    loadImages(comboToFolder[comboString]);
+                }
+
+                // Разблокируем скролл и едем вниз
                 document.body.classList.add('puzzle-won');
                 isScrollLocked = false;
-
                 setTimeout(() => {
                     const yOffset = fifthSection.getBoundingClientRect().top + window.pageYOffset;
                     window.scrollTo({ top: yOffset, behavior: 'smooth' });
                 }, 100);
             } else {
+                // Если звезд меньше 3, блокируем скролл и прячем 5 экран
                 document.body.classList.remove('puzzle-won');
-                isScrollLocked = true; // Снова блокируем, если потушили
+                isScrollLocked = true;
             }
         });
     });
 
 
-    // --- 6. КАРУСЕЛЬ (Драг) ---
-    const carouselContainer = document.getElementById('carousel');
-    if (carouselContainer) {
-        let isDown = false;
-        let startX;
-        let scrollLeft;
+    // --- 5. ДРАГ КАРУСЕЛЕЙ ---
+    // Инициализация драга для обеих каруселей
+    const carousels = [document.getElementById('carousel'), document.getElementById('second-carousel')];
 
-        carouselContainer.addEventListener('mousedown', (e) => {
-            isDown = true;
-            carouselContainer.classList.add('is-dragging');
-            startX = e.pageX - carouselContainer.offsetLeft;
-            scrollLeft = carouselContainer.scrollLeft;
-        });
+    carousels.forEach(carouselContainer => {
+        if (carouselContainer) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
 
-        const endDrag = () => {
-            if (!isDown) return;
-            isDown = false;
-            carouselContainer.classList.remove('is-dragging');
-        };
+            carouselContainer.addEventListener('mousedown', (e) => {
+                isDown = true;
+                carouselContainer.classList.add('is-dragging');
+                startX = e.pageX - carouselContainer.offsetLeft;
+                scrollLeft = carouselContainer.scrollLeft;
+            });
 
-        carouselContainer.addEventListener('mouseleave', endDrag);
-        carouselContainer.addEventListener('mouseup', endDrag);
+            const endDrag = () => {
+                if (!isDown) return;
+                isDown = false;
+                carouselContainer.classList.remove('is-dragging');
+            };
 
-        carouselContainer.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
-            e.preventDefault();
-            const x = e.pageX - carouselContainer.offsetLeft;
-            const walk = (x - startX) * 1.5;
-            carouselContainer.scrollLeft = scrollLeft - walk;
-        });
-    }
+            carouselContainer.addEventListener('mouseleave', endDrag);
+            carouselContainer.addEventListener('mouseup', endDrag);
+
+            carouselContainer.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - carouselContainer.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                carouselContainer.scrollLeft = scrollLeft - walk;
+            });
+        }
+    });
 });

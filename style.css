@@ -270,3 +270,32 @@ body.puzzle-won .fifth-section {
 body.no-scroll {
     overflow: hidden;
 }
+/* =========================================
+   ЭКРАН 5: Финальные наборы
+   ========================================= */
+.fifth-section {
+    height: 100vh;
+    position: relative;
+    display: flex; /* Показываем всегда, но он пустой */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Переопределяем правило display: none из блокировки */
+body .fifth-section {
+    display: flex;
+}
+
+/* Копируем стили карусели, чтобы всё выглядело одинаково */
+#second-carousel {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    padding: 0 10vw;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#second-carousel::-webkit-scrollbar { display: none; }
