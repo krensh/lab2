@@ -20,9 +20,7 @@ body {
     overflow-x: hidden;
 }
 
-/* =========================================
-   ЭКРАН 1: Заголовок
-   ========================================= */
+/* 1 */
 .hero {
     height: 100vh;
     display: flex;
@@ -48,9 +46,7 @@ body {
     filter: drop-shadow(0 0 10px rgba(255, 119, 160, 0.532));
 }
 
-/* =========================================
-   КУРСОР
-   ========================================= */
+/* курсор */
 .cursor-star {
     position: fixed;
     width: 24px;
@@ -64,9 +60,7 @@ body {
     left: 0;
 }
 
-/* =========================================
-   ЭКРАН 2: Звезды
-   ========================================= */
+/* 2 */
 .stars-section {
     height: 100vh;
     position: relative;
@@ -97,12 +91,10 @@ body {
     filter: drop-shadow(0 0 10px rgba(201, 89, 55, 0.5));
 }
 
-/* Перебиваем палец на всех кликабельных элементах */
 button, a, svg, path, .star, .puzzle-star {
     cursor: none !important;
 }
 
-/* Общие настройки для звезд 2 экрана */
 .star {
     position: absolute;
     pointer-events: auto;
@@ -119,7 +111,6 @@ button, a, svg, path, .star, .puzzle-star {
 
 .star:hover path { opacity: 0.8; }
 
-/* Позиционирование звезд 2 экрана */
 .star-big { width: 190px; top: 60%; left: 10%; }
 .star-big path { stroke: #8A2BE2; }
 .star-big.active path { fill: url(#grad-purple); opacity: 1; filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.6)); }
@@ -132,17 +123,15 @@ button, a, svg, path, .star, .puzzle-star {
 .star-medium path { stroke: #008080; }
 .star-medium.active path { fill: url(#grad-green); opacity: 1; filter: drop-shadow(0 0 20px rgba(0, 128, 128, 0.6)); }
 
-/* =========================================
-   БЛОКИРОВКА И ПОКАЗ ЭКРАНОВ
-   ========================================= */
-/* По умолчанию 3, 4 и 5 экраны скрыты */
+
+/* 3 */
+
 .final-section,
 .puzzle-section,
 .fifth-section {
     display: none;
 }
 
-/* 3 и 4 экран показываются, когда собраны звезды на 2 экране */
 body.game-won .final-section,
 body.game-won .puzzle-section {
     display: flex;
@@ -151,15 +140,12 @@ body.game-won .puzzle-section {
     justify-content: center;
 }
 
-/* 5 экран показывается, когда собраны звезды на 4 экране */
 body.puzzle-won .fifth-section {
     display: block;
     height: 100vh;
 }
 
-/* =========================================
-   ЭКРАН 3: Карусель
-   ========================================= */
+
 .final-section {
     position: relative;
     overflow: hidden;
@@ -206,9 +192,7 @@ body.puzzle-won .fifth-section {
     font-family: 'Skifer', sans-serif;
 }
 
-/* =========================================
-   ЭКРАН 4: Загадка (ПОЛНОСТЬЮ ИЗОЛИРОВАН)
-   ========================================= */
+/* 4 */
 .puzzle-container {
     position: relative;
     width: 100%;
@@ -234,7 +218,7 @@ body.puzzle-won .fifth-section {
     z-index: 2;
 }
 
-/* Общие стили ТОЛЬКО для звезд 4 экрана */
+
 .puzzle-star {
     position: absolute;
     pointer-events: auto;
@@ -251,7 +235,6 @@ body.puzzle-won .fifth-section {
 
 .puzzle-star:hover path { opacity: 0.8; }
 
-/* Уникальное позиционирование для 4-х звезд */
 .p-big { width: 140px; top: 15%; left: 10%; }
 .p-big path { stroke: #8A2BE2; }
 .p-big.active path { fill: url(#grad-purple); opacity: 1; filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.6)); }
@@ -270,32 +253,95 @@ body.puzzle-won .fifth-section {
 body.no-scroll {
     overflow: hidden;
 }
-/* =========================================
-   ЭКРАН 5: Финальные наборы
-   ========================================= */
+/* 5 */
 .fifth-section {
     height: 100vh;
     position: relative;
-    display: flex; /* Показываем всегда, но он пустой */
+    display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
-/* Переопределяем правило display: none из блокировки */
+
 body .fifth-section {
     display: flex;
 }
 
-/* Копируем стили карусели, чтобы всё выглядело одинаково */
-#second-carousel {
+
+.fifth-section {
+    height: 100vh;
+    position: relative;
     display: flex;
-    gap: 20px;
-    width: 100%;
-    padding: 0 10vw;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
-#second-carousel::-webkit-scrollbar { display: none; }
+
+/* 6 */
+.sandbox-section {
+    height: 100vh;
+    position: relative;
+    display: none;
+}
+
+body.all-combos-found .sandbox-section {
+    display: flex;
+}
+
+
+.sandbox-star {
+    position: absolute;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+    overflow: visible;
+    cursor: none !important;
+}
+
+.sandbox-star path {
+    fill: transparent;
+    transition: all 0.4s ease;
+    stroke-width: 2px;
+    opacity: 0.3;
+}
+
+.sandbox-star:hover path { opacity: 0.8; }
+
+
+.s-big { width: 120px; top: 20%; left: 10%; }
+.s-big path { stroke: #8A2BE2; }
+.s-big.active path { fill: url(#grad-purple); opacity: 1; filter: drop-shadow(0 0 25px rgba(138, 43, 226, 0.6)); }
+
+.s-small-1 { width: 50px; top: 15%; right: 25%; }
+.s-small-1 path { stroke: #FF8C00; }
+.s-small-1.active path { fill: url(#grad-orange); opacity: 1; filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.6)); }
+
+.s-medium { width: 90px; top: 60%; left: 20%; }
+.s-medium path { stroke: #008080; }
+.s-medium.active path { fill: url(#grad-green); opacity: 1; filter: drop-shadow(0 0 20px rgba(0, 128, 128, 0.6)); }
+
+.s-small-2 { width: 60px; bottom: 15%; right: 15%; }
+.s-small-2 path { stroke: #FF8C00; }
+.s-small-2.active path { fill: url(#grad-orange); opacity: 1; filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.6)); }
+
+.s-medium-2 { width: 80px; bottom: 30%; right: 30%; }
+.s-medium-2 path { stroke: #008080; }
+.s-medium-2.active path { fill: url(#grad-green); opacity: 1; filter: drop-shadow(0 0 20px rgba(0, 128, 128, 0.6)); }
+
+.s-small-3 { width: 50px; top: 40%; right: 10%; }
+.s-small-3 path { stroke: #FF8C00; }
+.s-small-3.active path { fill: url(#grad-orange); opacity: 1; filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.6)); }
+
+/* 7 */
+.sandbox-carousel-section {
+    height: 100vh;
+    position: relative;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+body.sandbox-carousel-won .sandbox-carousel-section {
+    display: flex;
+}

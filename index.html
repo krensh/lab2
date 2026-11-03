@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <!-- Скрытые градиенты -->
     <svg style="width: 0; height: 0; position: absolute;">
         <defs>
             <radialGradient id="grad-orange" cx="50%" cy="50%" r="50%">
@@ -31,37 +30,34 @@
         <path d="M52.2679 0L63.9099 40.6289L104.537 52.2694L63.9099 63.9099L52.2679 104.539L40.6274 63.9099L0 52.2694L40.6274 40.6289L52.2679 0Z" />
     </svg>
 
-    <!-- ЭКРАН 1: Заголовок по центру (как в твоем варианте) -->
+    <!-- экран 1-->
     <header class="hero">
         <div class="title-wrapper">
-            <h1 class="main-title">stargazing ideas⭑</h1>
+            <h1 class="main-title">stargazing⭑</h1>
         </div>
     </header>
 
-    <!-- ЭКРАН 2: Звезды -->
+    <!-- экран 2 -->
     <section class="stars-section">
         <div class="stars-container">
 
             <p class="subtitle">зажги все звёзды</p>
 
-            <!-- Большая фиолетовая -->
             <svg class="star star-big" viewBox="-20 -20 298 289" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
                 <path d="M138.91 66.9126L185.146 21.1581L171.74 84.5876L236.419 74.1038L189.116 115.809L246.684 143.288L180.584 150.941L211.03 208.303L154.817 177.394L145.316 238.507L118.432 181.377L71.5192 227.297L85.1642 164.493L21.1235 175.23L68.6281 132.88L10.6852 104.834L76.2524 97.5975L45.739 40.9006L102.654 71.7835L112.598 10.1539L138.91 66.9126Z" />
             </svg>
 
-            <!-- Мелкая оранжевая -->
             <svg class="star star-small" viewBox="-20 -20 162 162" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
                 <path d="M122 44.3044L83.621 73.5286L100.797 119.703L62.2513 90.7155L25.3969 122L39.9545 74.8583L0 48.0204L47.5433 47.8722L59.704 0L74.5299 47.0506L122 44.3044Z" />
             </svg>
 
-            <!-- Средняя зеленая -->
             <svg class="star star-medium" viewBox="-20 -20 213 213" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
                 <path d="M101.149 51.1269L147.662 25.3339L121.866 71.8485L173 86.5L121.866 101.15L147.662 147.664L101.15 121.87L86.4984 173L71.8482 121.867L25.3328 147.664L51.1262 101.148L0 86.5L51.1278 71.8501L25.3328 25.3339L71.8482 51.1301L86.4984 0L101.149 51.1269Z" />
             </svg>
         </div>
     </section>
 
-            <!-- ЭКРАН 3: Карусель -->
+            <!-- экран 3 -->
     <section class="final-section" id="final-section">
         <div class="carousel-container" id="carousel">
             <img src="assets/pic_packs/first/1.jpe" alt="Вдохновение 1" class="carousel-img" draggable="false">
@@ -73,40 +69,74 @@
         <p class="carousel-caption">великие художники вдохновлялись звездами. как и мы.</p>
     </section>
 
-                <!-- ЭКРАН 4: Загадка -->
+                <!-- экран 4 -->
     <section class="puzzle-section" id="puzzle-section">
         <div class="puzzle-container">
             <p class="puzzle-text">найди комбинацию, чтобы открыть одну из миллиардов идей</p>
 
-            <!-- 1. Большая фиолетовая -->
             <svg class="puzzle-star p-big" data-id="1" viewBox="-20 -20 298 289" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
                 <path d="M138.91 66.9126L185.146 21.1581L171.74 84.5876L236.419 74.1038L189.116 115.809L246.684 143.288L180.584 150.941L211.03 208.303L154.817 177.394L145.316 238.507L118.432 181.377L71.5192 227.297L85.1642 164.493L21.1235 175.23L68.6281 132.88L10.6852 104.834L76.2524 97.5975L45.739 40.9006L102.654 71.7835L112.598 10.1539L138.91 66.9126Z" />
             </svg>
 
-            <!-- 2. Мелкая оранжевая (верх) -->
             <svg class="puzzle-star p-small-1" data-id="2" viewBox="-20 -20 162 162" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
                 <path d="M122 44.3044L83.621 73.5286L100.797 119.703L62.2513 90.7155L25.3969 122L39.9545 74.8583L0 48.0204L47.5433 47.8722L59.704 0L74.5299 47.0506L122 44.3044Z" />
             </svg>
 
-            <!-- 3. Средняя зеленая -->
             <svg class="puzzle-star p-medium" data-id="3" viewBox="-20 -20 213 213" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
                 <path d="M101.149 51.1269L147.662 25.3339L121.866 71.8485L173 86.5L121.866 101.15L147.662 147.664L101.15 121.87L86.4984 173L71.8482 121.867L25.3328 147.664L51.1262 101.148L0 86.5L51.1278 71.8501L25.3328 25.3339L71.8482 51.1301L86.4984 0L101.149 51.1269Z" />
             </svg>
 
-            <!-- 4. Мелкая оранжевая (низ) -->
             <svg class="puzzle-star p-small-2" data-id="4" viewBox="-20 -20 162 162" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
                 <path d="M122 44.3044L83.621 73.5286L100.797 119.703L62.2513 90.7155L25.3969 122L39.9545 74.8583L0 48.0204L47.5433 47.8722L59.704 0L74.5299 47.0506L122 44.3044Z" />
             </svg>
         </div>
     </section>
 
-    <!-- ЭКРАН 5: Финальные наборы -->
+    <!--экран 5 -->
     <section class="fifth-section" id="fifth-section">
         <div class="carousel-container" id="second-carousel">
-            <!-- Картинки будут добавляться через JS в зависимости от комбинации -->
         </div>
-        <p class="carousel-caption">ты нашел свой набор идей.</p>
+        <p class="carousel-caption">ты можешь попробовать что-то еще.</p>
     </section>
+
+        <!-- экран 6 -->
+    <section class="sandbox-section" id="sandbox-section">
+        <div class="puzzle-container">
+            <p class="puzzle-text">экспериментируй. найди все 20 комбинаций.</p>
+
+            <svg class="sandbox-star s-big" data-id="1" viewBox="-20 -20 298 289" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
+                <path d="M138.91 66.9126L185.146 21.1581L171.74 84.5876L236.419 74.1038L189.116 115.809L246.684 143.288L180.584 150.941L211.03 208.303L154.817 177.394L145.316 238.507L118.432 181.377L71.5192 227.297L85.1642 164.493L21.1235 175.23L68.6281 132.88L10.6852 104.834L76.2524 97.5975L45.739 40.9006L102.654 71.7835L112.598 10.1539L138.91 66.9126Z" />
+            </svg>
+
+            <svg class="sandbox-star s-small-1" data-id="2" viewBox="-20 -20 162 162" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
+                <path d="M122 44.3044L83.621 73.5286L100.797 119.703L62.2513 90.7155L25.3969 122L39.9545 74.8583L0 48.0204L47.5433 47.8722L59.704 0L74.5299 47.0506L122 44.3044Z" />
+            </svg>
+
+            <svg class="sandbox-star s-medium" data-id="3" viewBox="-20 -20 213 213" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
+                <path d="M101.149 51.1269L147.662 25.3339L121.866 71.8485L173 86.5L121.866 101.15L147.662 147.664L101.15 121.87L86.4984 173L71.8482 121.867L25.3328 147.664L51.1262 101.148L0 86.5L51.1278 71.8501L25.3328 25.3339L71.8482 51.1301L86.4984 0L101.149 51.1269Z" />
+            </svg>
+
+            <svg class="sandbox-star s-small-2" data-id="4" viewBox="-20 -20 162 162" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
+                <path d="M122 44.3044L83.621 73.5286L100.797 119.703L62.2513 90.7155L25.3969 122L39.9545 74.8583L0 48.0204L47.5433 47.8722L59.704 0L74.5299 47.0506L122 44.3044Z" />
+            </svg>
+
+            <svg class="sandbox-star s-medium-2" data-id="5" viewBox="-20 -20 213 213" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
+                <path d="M101.149 51.1269L147.662 25.3339L121.866 71.8485L173 86.5L121.866 101.15L147.662 147.664L101.15 121.87L86.4984 173L71.8482 121.867L25.3328 147.664L51.1262 101.148L0 86.5L51.1278 71.8501L25.3328 25.3339L71.8482 51.1301L86.4984 0L101.149 51.1269Z" />
+            </svg>
+
+            <svg class="sandbox-star s-small-3" data-id="6" viewBox="-20 -20 162 162" fill="none" style="overflow: visible;" xmlns="http://www.w3.org/2000/svg">
+                <path d="M122 44.3044L83.621 73.5286L100.797 119.703L62.2513 90.7155L25.3969 122L39.9545 74.8583L0 48.0204L47.5433 47.8722L59.704 0L74.5299 47.0506L122 44.3044Z" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- экран 7 -->
+    <section class="sandbox-carousel-section" id="sandbox-carousel-section">
+        <div class="carousel-container" id="sandbox-carousel">
+        </div>
+        <p class="carousel-caption">еще одна идея найдена.</p>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
